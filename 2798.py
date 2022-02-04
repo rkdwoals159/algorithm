@@ -28,12 +28,27 @@
 #5 6 7 8 9
 #출력 : 6+7+8 = 21
 
-N = int(input())
-M = int(input())
+test = input().split()
+N = int(test[0])
+M = int(test[1])
 ans = 0
-lst = [int(input()) for _ in range(N) ]
+lst = list(map(int,input().split()))
+a=0
+b=1
+c=2
 #nC3을 어떻게 구현할 것인가...
-for i in range((N * (N-1)*(N-2)/6) ):
-    
-    if abs(M - (lst[i] + lst[i+1] + lst[i+2])) < abs(M-ans) :
-        ans = (lst[i] + lst[i+1] + lst[i+2])
+for _ in range(int((N * (N-1)*(N-2)/6)) ):
+    if abs(M - (lst[a] + lst[b] + lst[c])) < abs(M-ans) :
+        if M - (lst[a] + lst[b] + lst[c]) < 0:
+            pass
+        else: ans = (lst[a] + lst[b] + lst[c])
+    c+=1
+    if c == N :
+        b +=1
+        if b == N-1:
+           a+=1
+           b = a+1 
+        c = b+1
+        
+
+print(ans)
