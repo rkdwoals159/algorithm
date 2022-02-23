@@ -19,7 +19,7 @@ for i in set(a) :
     cnt.append(a.count(i))
 if cnt.count(sorted(cnt)[-1]) != 1 : print('?')
 else : 
-    idx = list(set(a)).index(max(cnt))
-    print(a[idx])
+    idx = cnt.index(max(cnt))
+    print(list(set(a))[idx])
 
 
