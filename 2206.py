@@ -15,7 +15,7 @@
 
 # 예제 입력 1 
 # 6 5
-# 00000
+# 01000
 # 11110
 # 10010
 # 00000
@@ -32,30 +32,31 @@
 # 예제 출력 2 
 # -1
 from collections import deque
-
-dx = [0,-1, 0, 1]
-dy = [-1,0,1,0]
-def bfs():
-    visit = [[[0]*2  for _ in range(M)] for _ in range(N)]
-    visit[0][0][0] = 1
-    while q:
-        x,y,wall = q.popleft()
-        if x==(N-1) and y==(M-1): 
-            return visit[x][y][wall] #맨 끝 도달할 경우 종료
-        for i in range(4) : #상하좌우 반복
-            if 0<= x+dx[i]<N and 0<=y+dy[i]<M and visit[x+dx[i]][y+dy[i]][wall] == 0: #끝에 부딪히지 않고 안가봤던 길인경우
-                if Map[x+dx[i]][y+dy[i]] == '0': #길이 이동가능한곳인경우
-                    visit[x+dx[i]][y+dy[i]][wall] = visit[x][y][wall]+1 #이전좌표의 값 +1 만큼 방문 표시함
-                    q.append([x+dx[i],y+dy[i],wall]) #큐에 추가
-                if wall ==0 and Map[x+dx[i]][y+dy[i]] == '1': #벽을 아직 안넘어봤고, 이동가능하지 않은 곳인경우
-                    visit[x+dx[i]][y+dy[i]][1] = visit[x][y][0] +1 #이전좌표 +1 만큼 방문 표시함
-                    q.append([x+dx[i],y+dy[i],1]) #큐에 추가하는데, wall은 1로 업데이트
-
-    return -1
-                    
-N,M = map(int,input().split())
-Map = [list(input())for _ in range(N)]
-q = deque()
+N,M = list(map(int,input().split())) #행렬
+q = deque() #큐생성
 q.append([0,0,0])
+visit = [[[0]*2 for _ in range(M)]for _ in range(N)] #방문했는지 + 몇번째 순서인지  확인하기위해 3차원 리스트생성
+visit[0][0][0] = 1 #첫번째 좌표는 이미 방문한것으로 침
+Map = [list(map(int,input()))for _ in range(N)]
+d = [(-1,0),(1,0),(0,-1),(0,1)] #상하좌우
+def bfs():
+    while q :
+        x,y,wall = q.popleft()
+        if x == N-1 and y == M-1 : #만일 결승지점까지 도착했다면
+            return visit[x][y][wall] #출력 후 종료
+        for i in range(4):
+            dx = x + d[i][0]
+            dy = y + d[i][1]
+            if 0<=dx<N and 0<=dy<M and visit[dx][dy][wall] == 0 :#조건탐색 : 상하좌우가 테두리 안에있고 방문하지 않은 좌표라면
+                if Map[dx][dy] == 0 : #이동가능한 좌표라면?
+                    q.append([dx,dy,wall])
+                    visit[dx][dy][wall] = visit[x][y][wall]+1
 
+                else : #이동불가능한 좌표라면?
+                # 세부조건탐색 아직 벽을 안넘어봤다면?
+                    if wall == 0 : 
+                        q.append([dx,dy,1])
+                        visit[dx][dy][1] = visit[x][y][0]+1
+                    #이미 넘어봤다면? 움직일 수 없음. 작성 x
+    return -1 #큐가 사라질때까지 도달못하면 -1출력
 print(bfs())
