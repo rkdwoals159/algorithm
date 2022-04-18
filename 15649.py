@@ -30,22 +30,17 @@
 # 4 1
 # 4 2
 # 4 3
-import sys
-input = sys.stdin.readline
-N,M = map(int,input().split())
-rs = []
-chk = [False] * (N+1)
+N,M = map(int, input().split())
+answer = []
 
-def recur(num):
-    if num == M:
-        print(' '.join(map(str,rs)))
+def backTraking(depth):
+    if depth == M :
+        print(' '.join(map(str,answer)))
         return
-
     for i in range(1,N+1):
-        if chk[i] == False:
-            chk[i] = True
-            rs.append(i)
-            recur(num + 1)
-            chk[i] = False
-            rs.pop()
-recur(0)
+        if i in answer : continue
+        else : 
+            answer.append(i)
+            backTraking(depth+1)
+            answer.pop()
+backTraking(0)
