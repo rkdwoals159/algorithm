@@ -22,11 +22,41 @@
 # 1 2 4 3
 # 1 2 3 4
 
-from collections import deque
+# from collections import deque
 
+# N,M,V = map(int,input().split())
+# vertex = [[0]*(N+1) for _ in range(N+1)]
+# for _ in range(M):
+#     a,b = map(int,input().split())
+#     vertex[a][b] = vertex[b][a] = 1
+# visit = [0]*(N+1)
+# def dfs(V):
+#     visit[V] = 1
+#     print(V,end=' ')
+#     for i in range(1,N+1):
+#         if visit[i]==0 and vertex[V][i] == 1:
+#             dfs(i)
+       
+# def bfs(V):
+#     q = deque()
+#     q.append(V)   
+#     visit[V] = 0 
+#     while q:
+#         a = q.popleft()
+#         print(a,end=' ')
+#         for i in range(1,N+1):
+#             if visit[i]==1 and vertex[a][i] == 1:
+#                 visit[i] = 0
+#                 q.append(i)
+# dfs(V)
+# print()
+# bfs(V)
+
+
+from collections import deque
 N,M,V = map(int,input().split())
-vertex = [[0]*(N+1) for _ in range(N+1)]
-for _ in range(M):
+vertex = [[0]*(N+1)for _ in range(N+1)]
+for i in range(M):
     a,b = map(int,input().split())
     vertex[a][b] = vertex[b][a] = 1
 visit = [0]*(N+1)
@@ -34,20 +64,22 @@ def dfs(V):
     visit[V] = 1
     print(V,end=' ')
     for i in range(1,N+1):
-        if visit[i]==0 and vertex[V][i] == 1:
+        if visit[i]==0 and vertex[V][i]==1:
             dfs(i)
-       
+
 def bfs(V):
-    q = deque()
-    q.append(V)   
-    visit[V] = 0 
-    while q:
-        a = q.popleft()
-        print(a,end=' ')
+    visit[V] = 0
+    queue = deque()
+    queue.append(V)
+    while queue :
+        num = queue.popleft()
+        print(num,end =' ')
         for i in range(1,N+1):
-            if visit[i]==1 and vertex[a][i] == 1:
+            if visit[i]==1 and vertex[num][i]==1 :
+                queue.append(i)
                 visit[i] = 0
-                q.append(i)
 dfs(V)
 print()
 bfs(V)
+                
+    
