@@ -24,18 +24,33 @@
 
 
 
+# N = int(input())
+# case = []
+
+# cnt = 1
+# for i in range(N):
+#     case.append(list(map(int,input().split())))
+# case.sort(key=lambda x: (x[1], x[0]))
+# end = case[0][1]
+# for i in range(1, N):
+#     if case[i][0] >= end :
+#         cnt +=1
+#         end = case[i][1]
+# print(cnt)
+
+
+#------------------------------------------------------------------
+import sys
 N = int(input())
 case = []
-
-cnt = 1
+answer = []
 for i in range(N):
-    case.append(list(map(int,input().split())))
-case.sort(key=lambda x: (x[1], x[0]))
-end = case[0][1]
-for i in range(1, N):
-    if case[i][0] >= end :
-        cnt +=1
-        end = case[i][1]
-print(cnt)
-
-
+    op, cl = map(int,sys.stdin.readline().split())
+    case.append((op,cl))     
+case = sorted(case,key=lambda x: (x[1],x[0]))
+for term in case:
+    if not answer:
+        answer.append(term)
+    else :
+        if term[0] >= answer[-1][1] : answer.append(term)
+print(len(answer))
