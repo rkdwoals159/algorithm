@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(10**6)
+
 Row, Column = map(int,input().split())
 garden = [list(input()) for _ in range(Row)]
 visited = [[0] * Column for _ in range(Row)]
@@ -14,7 +17,6 @@ def dfs(x,y):
         dy = y + i[1]
         
         if 0<=dx < Column and 0<= dy < Row :
-            # print(dx,dy)
             if visited[dy][dx] == 0 and garden[dy][dx] !='#':
                 visited[dy][dx] = 1
                 area.append([dx,dy])
