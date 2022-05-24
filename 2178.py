@@ -23,30 +23,55 @@
 # 예제 출력 1 
 # 15
 
-from collections import deque
+# from collections import deque
 
-N,M = list(map(int,input().split()))
-maze = [list(map(int,input()))for _ in range(N)]
+# N,M = list(map(int,input().split()))
+# maze = [list(map(int,input()))for _ in range(N)]
 
 
-q = deque()
-q.append((0,0))
-d= [(-1,0),(1,0),(0,-1,),(0,1)]
+# q = deque()
+# q.append((0,0))
+# d= [(-1,0),(1,0),(0,-1,),(0,1)]
 
-breaker = False
+# breaker = False
     
-while True:
-    x, y = q.popleft()
-    for i in range(len(d)) :
-        dx = x + d[i][0]
-        dy = y + d[i][1]
-        if 0<=dx < N and 0<=dy<M:
-            if maze[dx][dy] == 1 :
-                maze[dx][dy] = maze[x][y]+1
-                q.append((dx,dy))
-            if dx == N-1 and dy == M-1 :
-                print(maze[dx][dy])
-                breaker = True
-    if breaker == True : 
+# while True:
+#     x, y = q.popleft()
+#     for i in range(len(d)) :
+#         dx = x + d[i][0]
+#         dy = y + d[i][1]
+#         if 0<=dx < N and 0<=dy<M:
+#             if maze[dx][dy] == 1 :
+#                 maze[dx][dy] = maze[x][y]+1
+#                 q.append((dx,dy))
+#             if dx == N-1 and dy == M-1 :
+#                 print(maze[dx][dy])
+#                 breaker = True
+#     if breaker == True : 
+#         break
+
+
+
+
+
+from collections import deque
+N,M = map(int,input().split())
+case = [list(map(int,input())) for _ in range(N)]
+queue = deque([[0,0]])
+dir_ = [(-1,0),(0,1),(0,-1),(1,0)]
+while queue:
+    x,y = queue.popleft()
+    if [x,y] == [M-1,N-1] : 
+        print(case[y][x])
         break
+    for i in dir_:
+        dx = x + i[0]
+        dy = y + i[1]
+
+        if 0<=dx < M and 0<= dy < N:
+            if case[dy][dx] != 1: continue
+
+            queue.append([dx,dy])
+            case[dy][dx] = case[y][x]+1
+            
 
