@@ -56,22 +56,22 @@
 
 from collections import deque
 N,M = map(int,input().split())
-case = [list(map(int,input())) for _ in range(N)]
+maze = [list(map(int,input())) for _ in range(N)]
 queue = deque([[0,0]])
 dir_ = [(-1,0),(0,1),(0,-1),(1,0)]
 while queue:
     x,y = queue.popleft()
     if [x,y] == [M-1,N-1] : 
-        print(case[y][x])
+        print(maze[y][x])
         break
     for i in dir_:
         dx = x + i[0]
         dy = y + i[1]
 
         if 0<=dx < M and 0<= dy < N:
-            if case[dy][dx] != 1: continue
+            if maze[dy][dx] != 1: continue
 
             queue.append([dx,dy])
-            case[dy][dx] = case[y][x]+1
+            maze[dy][dx] = maze[y][x]+1
             
 
