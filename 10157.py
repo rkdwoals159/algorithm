@@ -1,34 +1,36 @@
-N,M = map(int, input().split())
-num = int(input())
-n = N
-m = M
-case = [1,0]
-dir_ = 0 # 0: 북 ,1: 동, 2: 남 , 3: 서
-for i in range(num):
-    if dir_ == 0: #북쪽방향 진행이면
-        if case[1] != m :
-            case[1] += 1
-        else : 
-            case[0] += 1
-            dir_ == 1
-            
-    elif dir_ == 1: #동쪽방향이면
-        if case[1] != n :
-            case[0] +=1
-        else :
-            case[1] -=1 
-            dir_ == 1
-    elif dir_ == 2: #남쪽방향이면
-        if case[1] != M-m+1 :
-            case[1] -=1
-        else : 
-            case[0] -=1
-            dir_ == 1
-    else : #서쪽방향이면
-        if case[1] != N-n+1 :
-            case[0] -=1
-        else :
-            case[1] -=1 
-            dir_ == 1
-    
-print(case[0],case[1])
+from collections import deque
+c,r = map(int,input().split())
+R = r 
+C = c
+K = int(input())
+area = [[0] * c for _ in range(r)]
+r -=1
+c = 0
+area[r][c] = 1
+dir_ = deque([(-1,0),(0,1),(1,0),(0,-1)])
+cnt = 1
+answer = []
+if K > R*C: 
+    print(0)
+elif K == 1:
+    print('1 1')
+else:   
+    while cnt < R*C :
+        cnt +=1
+        while True :
+            dr = r + dir_[0][0]
+            dc = c + dir_[0][1]
+            if 0<=dr< R and 0<=dc < C and area[dr][dc] == 0:
+                area[dr][dc] = cnt
+                r = dr
+                c = dc
+                break
+            else: dir_.rotate(-1)
+        
+        if cnt == K:
+            answer = [c+1,R-r]
+            break
+    if answer :
+        print(*answer)
+    else: print(0)
+
