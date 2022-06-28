@@ -1,6 +1,5 @@
+new_s = ['abcdefasdf','a','abc']
 
+new_s.sort(key = len)
 
-tmp = 100000
-a = [1,2,3,4,5]
-print(a[tmp])
-#출력값 : [1, 2, 3, 4, 5]
+print(new_s)
