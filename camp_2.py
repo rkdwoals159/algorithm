@@ -101,3 +101,10 @@ def solution(param0):
 
     output = convert_to_hex(command, destination, source, commands, registers).replace(" ", "").upper()
     return f'0x{output}'
+
+
+# 부스트캠프 코딩테스트 후기를 보면 특정 내장 메서드를 사용하지 않고 직접 구현하라는 문제가 나온다고 하던데 
+# 그게 이런 문제였던 것 같다. 진법 변환은 까다로우면서도 원리만 알면 어렵지 않게 구현할 수 있는 것 같다.
+
+# 다른 요구사항으로 메서드를 호출할 때 메인 함수 외부에 따로 구현해서 사용하라는 것이 있었다. 
+# 문제는 기본적으로 문자열 파싱이었기 때문에 위의 코드처럼 검증 메서드를 별도로 분리해서 작성하였다.
